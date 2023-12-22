@@ -1,14 +1,22 @@
 import pandas as pd
 
 
+def get_data(filename):
+    chemin_fichier_csv = 'data/' + filename
+    dataframe = pd.read_csv(chemin_fichier_csv)
+    return dataframe
 
-def get_data():
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
+filenames = ["links.csv", "movies.csv", "ratings.csv", "tags.csv"]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print('PyCharm')
+# Dictionnaire pour stocker les DataFrames
+dfs = {}
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Charger chaque fichier dans un DataFrame séparé
+for filename in filenames:
+    try:
+        dfs[filename.split('.')[0]] = get_data(filename)
+    except Exception as e:
+        print(f"Erreur lors de la lecture de {filename}: {e}")
+
+print(dfs)
